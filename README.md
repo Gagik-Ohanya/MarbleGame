@@ -1,5 +1,5 @@
 # MarbleGame
-The program finds the shortest route (if it exists) for marble game
+The program finds the shortest route to drop all the marbles into the correct holes – if such a move sequence is possible.
 
 Source: http://icpc.baylor.edu/past/default.htm
 Rules
@@ -11,8 +11,6 @@ At the beginning of the game, all marbles are placed on the board, each in a dif
 •	A unit square can contain at most a single marble at any one time.
 •	When a marble moves into a square with a hole, the marble drops into that hole. The hole is then filled, and other marbles can subsequently roll over the hole. A marble in a hole can never leave that hole.
 The game is over when each marble has dropped into a hole with the corresponding number.
-The figure below illustrates a solution for a game played on a 4x4 board with three blue marbles, three holes and a wall. The solution has five moves: lift the east side, lift the north side, lift the south side, lift the west side, lift the north side.
-Your program should determine the fewest number of moves to drop all the marbles into the correct holes – if such a move sequence is possible.
 Performance is important. It is anticipated that the task will be run on multiprocessor system.
 Input
 The input file contains several test cases. The first line of each test case contains three numbers: the size N (2 ≤ N ≤ 40) of the board, the number M (M > 0) of marbles, and the number W of walls. 
