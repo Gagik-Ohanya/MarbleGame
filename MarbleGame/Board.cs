@@ -195,7 +195,7 @@ namespace MarbleGame
             var lineMarbles = new List<Marble>();
             for (int i = 0; i < Size; i++)
             {
-                lineMarbles = newBoardState.GetMarblesOnTheLine(i, liftedSide);     //in a row or column, depending on the direction
+                lineMarbles = newBoardState.GetMarblesInTheLine(i, liftedSide);     //in a row or column, depending on the direction
                 for (int j = 0; j < lineMarbles.Count; j++)
                 {
                     int targetPosition = newBoardState.MarbleTargetPosition(lineMarbles, j, liftedSide);
@@ -213,8 +213,15 @@ namespace MarbleGame
             return new DirectionResponse { Success = true, Finished = false, BoardState = newBoardState };
         }
 
+        //update board state after move if board state has been changed
+        private void UpdateBoardState(Board newBoardState)
+        {
+            Marbles = newBoardState.Marbles;
+            Holes = newBoardState.Holes;
+        }
+
         //gets the list of marbles located on the row/column depending on the movement direction
-        private List<Marble> GetMarblesOnTheLine(int lineIndex, Sides liftedSide)
+        private List<Marble> GetMarblesInTheLine(int lineIndex, Sides liftedSide)
         {
             switch (liftedSide)
             {
@@ -259,25 +266,6 @@ namespace MarbleGame
                     return currentPosition.Row > target;
                 default:
                     throw new Exception("Wrong side is lifted!");
-            }
-        }
-
-        //update board state after move if board state has been changed
-        private void UpdateBoardState(Board newBoardState)
-        {
-            Marble newMarble = null;
-            foreach (var marble in Marbles.Where(m => !m.IsInHole))
-            {
-                newMarble = newBoardState.Marbles.First(m => m.Number == marble.Number);
-                marble.IsInHole = newMarble.IsInHole;
-                marble.Position.Row = newMarble.Position.Row;
-                marble.Position.Column = newMarble.Position.Column;
-            }
-            Hole newHole = null;
-            foreach (var hole in Holes.Where(h => !h.IsFilled))
-            {
-                newHole = newBoardState.Holes.First(h => h.Number == hole.Number);
-                hole.IsFilled = newHole.IsFilled;
             }
         }
 
